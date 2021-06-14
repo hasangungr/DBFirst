@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DbSinavEntityModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Tbl_Lesson">
+    <Key>
+      <PropertyRef Name="lessonID" />
+    </Key>
+    <Property Name="lessonID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="lessonName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Tbl_Points" Relationship="Self.FK_Tbl_Points_Tbl_Lesson" FromRole="Tbl_Lesson" ToRole="Tbl_Points" />
+  </EntityType>
+  <EntityType Name="Tbl_Points">
+    <Key>
+      <PropertyRef Name="pointID" />
+    </Key>
+    <Property Name="pointID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="student" Type="Int32" />
+    <Property Name="lesson" Type="Int32" />
+    <Property Name="exam1" Type="Int16" />
+    <Property Name="exam2" Type="Int16" />
+    <Property Name="exam3" Type="Int16" />
+    <Property Name="average" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="state" Type="Boolean" />
+    <NavigationProperty Name="Tbl_Lesson" Relationship="Self.FK_Tbl_Points_Tbl_Lesson" FromRole="Tbl_Points" ToRole="Tbl_Lesson" />
+    <NavigationProperty Name="Tbl_Student" Relationship="Self.FK_Tbl_Points_Tbl_Student" FromRole="Tbl_Points" ToRole="Tbl_Student" />
+  </EntityType>
+  <EntityType Name="Tbl_Student">
+    <Key>
+      <PropertyRef Name="studentID" />
+    </Key>
+    <Property Name="studentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="studentName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="studentSurname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="studentPhoto" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Tbl_Points" Relationship="Self.FK_Tbl_Points_Tbl_Student" FromRole="Tbl_Student" ToRole="Tbl_Points" />
+    <Property Name="studentCity" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK_Tbl_Points_Tbl_Lesson">
+    <End Role="Tbl_Lesson" Type="Self.Tbl_Lesson" Multiplicity="0..1" />
+    <End Role="Tbl_Points" Type="Self.Tbl_Points" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tbl_Lesson">
+        <PropertyRef Name="lessonID" />
+      </Principal>
+      <Dependent Role="Tbl_Points">
+        <PropertyRef Name="lesson" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tbl_Points_Tbl_Student">
+    <End Role="Tbl_Student" Type="Self.Tbl_Student" Multiplicity="0..1" />
+    <End Role="Tbl_Points" Type="Self.Tbl_Points" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tbl_Student">
+        <PropertyRef Name="studentID" />
+      </Principal>
+      <Dependent Role="Tbl_Points">
+        <PropertyRef Name="student" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DbSinavEntityEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Tbl_Lesson" EntityType="Self.Tbl_Lesson" />
+    <EntitySet Name="Tbl_Points" EntityType="Self.Tbl_Points" />
+    <EntitySet Name="Tbl_Student" EntityType="Self.Tbl_Student" />
+    <AssociationSet Name="FK_Tbl_Points_Tbl_Lesson" Association="Self.FK_Tbl_Points_Tbl_Lesson">
+      <End Role="Tbl_Lesson" EntitySet="Tbl_Lesson" />
+      <End Role="Tbl_Points" EntitySet="Tbl_Points" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tbl_Points_Tbl_Student" Association="Self.FK_Tbl_Points_Tbl_Student">
+      <End Role="Tbl_Student" EntitySet="Tbl_Student" />
+      <End Role="Tbl_Points" EntitySet="Tbl_Points" />
+    </AssociationSet>
+    <EntitySet Name="Tbl_Clubs" EntityType="DbSinavEntityModel.Tbl_Clubs" />
+    <FunctionImport Name="pointsList" ReturnType="Collection(DbSinavEntityModel.pointsList_Result)" />
+  </EntityContainer>
+  <EntityType Name="Tbl_Clubs">
+    <Key>
+      <PropertyRef Name="clubID" />
+    </Key>
+    <Property Name="clubID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="clubName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <ComplexType Name="pointsList_Result">
+    <Property Type="Int32" Name="pointID" Nullable="false" />
+    <Property Type="String" Name="Ad_Soyad" Nullable="true" MaxLength="41" />
+    <Property Type="String" Name="lessonName" Nullable="true" MaxLength="50" />
+    <Property Type="Int16" Name="exam1" Nullable="true" />
+    <Property Type="Int16" Name="exam2" Nullable="true" />
+    <Property Type="Int16" Name="exam3" Nullable="true" />
+    <Property Type="Boolean" Name="state" Nullable="true" />
+    <Property Type="Decimal" Name="average" Nullable="true" Precision="5" Scale="2" />
+  </ComplexType>
+</Schema>

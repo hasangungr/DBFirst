@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DbSinavEntityModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Tbl_Clubs">
+    <Key>
+      <PropertyRef Name="clubID" />
+    </Key>
+    <Property Name="clubID" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="clubName" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Tbl_Lesson">
+    <Key>
+      <PropertyRef Name="lessonID" />
+    </Key>
+    <Property Name="lessonID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="lessonName" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Tbl_Points">
+    <Key>
+      <PropertyRef Name="pointID" />
+    </Key>
+    <Property Name="pointID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="student" Type="int" />
+    <Property Name="lesson" Type="int" />
+    <Property Name="exam1" Type="smallint" />
+    <Property Name="exam2" Type="smallint" />
+    <Property Name="exam3" Type="smallint" />
+    <Property Name="average" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="state" Type="bit" />
+  </EntityType>
+  <EntityType Name="Tbl_Student">
+    <Key>
+      <PropertyRef Name="studentID" />
+    </Key>
+    <Property Name="studentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="studentName" Type="varchar" MaxLength="20" />
+    <Property Name="studentSurname" Type="varchar" MaxLength="20" />
+    <Property Name="studentPhoto" Type="varchar" MaxLength="100" />
+    <Property Name="studentCity" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <Association Name="FK_Tbl_Points_Tbl_Lesson">
+    <End Role="Tbl_Lesson" Type="Self.Tbl_Lesson" Multiplicity="0..1" />
+    <End Role="Tbl_Points" Type="Self.Tbl_Points" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tbl_Lesson">
+        <PropertyRef Name="lessonID" />
+      </Principal>
+      <Dependent Role="Tbl_Points">
+        <PropertyRef Name="lesson" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tbl_Points_Tbl_Student">
+    <End Role="Tbl_Student" Type="Self.Tbl_Student" Multiplicity="0..1" />
+    <End Role="Tbl_Points" Type="Self.Tbl_Points" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tbl_Student">
+        <PropertyRef Name="studentID" />
+      </Principal>
+      <Dependent Role="Tbl_Points">
+        <PropertyRef Name="student" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="pointsList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="DbSinavEntityModelStoreContainer">
+    <EntitySet Name="Tbl_Clubs" EntityType="Self.Tbl_Clubs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Lesson" EntityType="Self.Tbl_Lesson" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Points" EntityType="Self.Tbl_Points" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Student" EntityType="Self.Tbl_Student" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Tbl_Points_Tbl_Lesson" Association="Self.FK_Tbl_Points_Tbl_Lesson">
+      <End Role="Tbl_Lesson" EntitySet="Tbl_Lesson" />
+      <End Role="Tbl_Points" EntitySet="Tbl_Points" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tbl_Points_Tbl_Student" Association="Self.FK_Tbl_Points_Tbl_Student">
+      <End Role="Tbl_Student" EntitySet="Tbl_Student" />
+      <End Role="Tbl_Points" EntitySet="Tbl_Points" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

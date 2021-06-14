@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DbSinavEntityModelStoreContainer" CdmEntityContainer="DbSinavEntityEntities">
+    <EntitySetMapping Name="Tbl_Lesson">
+      <EntityTypeMapping TypeName="DbSinavEntityModel.Tbl_Lesson">
+        <MappingFragment StoreEntitySet="Tbl_Lesson">
+          <ScalarProperty Name="lessonID" ColumnName="lessonID" />
+          <ScalarProperty Name="lessonName" ColumnName="lessonName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Points">
+      <EntityTypeMapping TypeName="DbSinavEntityModel.Tbl_Points">
+        <MappingFragment StoreEntitySet="Tbl_Points">
+          <ScalarProperty Name="pointID" ColumnName="pointID" />
+          <ScalarProperty Name="student" ColumnName="student" />
+          <ScalarProperty Name="lesson" ColumnName="lesson" />
+          <ScalarProperty Name="exam1" ColumnName="exam1" />
+          <ScalarProperty Name="exam2" ColumnName="exam2" />
+          <ScalarProperty Name="exam3" ColumnName="exam3" />
+          <ScalarProperty Name="average" ColumnName="average" />
+          <ScalarProperty Name="state" ColumnName="state" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Student">
+      <EntityTypeMapping TypeName="DbSinavEntityModel.Tbl_Student">
+        <MappingFragment StoreEntitySet="Tbl_Student">
+          <ScalarProperty Name="studentCity" ColumnName="studentCity" />
+          <ScalarProperty Name="studentID" ColumnName="studentID" />
+          <ScalarProperty Name="studentName" ColumnName="studentName" />
+          <ScalarProperty Name="studentSurname" ColumnName="studentSurname" />
+          <ScalarProperty Name="studentPhoto" ColumnName="studentPhoto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tbl_Clubs">
+      <EntityTypeMapping TypeName="DbSinavEntityModel.Tbl_Clubs">
+        <MappingFragment StoreEntitySet="Tbl_Clubs">
+          <ScalarProperty Name="clubName" ColumnName="clubName" />
+          <ScalarProperty Name="clubID" ColumnName="clubID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="pointsList" FunctionName="DbSinavEntityModel.Store.pointsList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DbSinavEntityModel.pointsList_Result">
+          <ScalarProperty Name="pointID" ColumnName="pointID" />
+          <ScalarProperty Name="Ad_Soyad" ColumnName="Ad Soyad" />
+          <ScalarProperty Name="lessonName" ColumnName="lessonName" />
+          <ScalarProperty Name="exam1" ColumnName="exam1" />
+          <ScalarProperty Name="exam2" ColumnName="exam2" />
+          <ScalarProperty Name="exam3" ColumnName="exam3" />
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="average" ColumnName="average" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>
